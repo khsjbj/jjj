@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy New Year</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: black;
+            color: white;
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            overflow: hidden;
+        }
+        h1 {
+            margin-top: 50px;
+            font-size: 50px;
+            color: gold;
+        }
+        .images {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 50px;
+            margin-top: 30px;
+        }
+        .images img {
+            width: 150px;
+            border-radius: 10px;
+        }
+        .footer {
+            position: absolute;
+            bottom: 20px;
+            width: 100%;
+            font-size: 20px;
+            color: #ffcc00;
+        }
+        .fireworks {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+        .firework {
+            position: absolute;
+            bottom: 0;
+            width: 10px;
+            height: 10px;
+            background: radial-gradient(circle, yellow, red, transparent);
+            border-radius: 50%;
+            animation: firework 1.5s ease-out forwards;
+        }
+        @keyframes firework {
+            0% {
+                transform: translateY(0) scale(1);
+                opacity: 1;
+            }
+            50% {
+                transform: translateY(-300px) scale(1.5);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-500px) scale(0.5);
+                opacity: 0;
+            }
+        }
+        .trumpet {
+            position: absolute;
+            bottom: 100px;
+            left: 50px;
+            width: 150px;
+            height: 100px;
+            background: url('trumpet.png') no-repeat center;
+            background-size: contain;
+        }
+        .sound {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: gold;
+            border-radius: 50%;
+            animation: expand 2s linear infinite;
+        }
+        @keyframes expand {
+            0% {
+                transform: scale(0.5);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(3);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>🎉 Happy New Year 2024! 🎉</h1>
+    <div class="images">
+        <!-- Gambar makanan dan minuman -->
+        <img src="pizza.png" alt="Pizza">
+        <img src="alcohol.png" alt="Alcohol Drink">
+        <img src="sate.png" alt="Sate">
+    </div>
+    <div class="fireworks" id="fireworks"></div>
+    <div class="footer">May your year be filled with joy, laughter, and celebration!</div>
+    <audio id="fireworkSound" src="firework.mp3"></audio>
+
+    <!-- Trompet -->
+    <div class="trumpet" id="trumpet"></div>
+
+    <script>
+        // Kembang Api
+        const createFirework = () => {
+            const firework = document.createElement("div");
+            firework.classList.add("firework");
+            document.body.appendChild(firework);
+            firework.style.left = `${Math.random() * 100}%`;
+            firework.style.animationDelay = `${Math.random() * 1}s`;
+            firework.style.animationDuration = `${1 + Math.random() * 2}s`;
+
+            firework.addEventListener("animationend", () => {
+                firework.remove();
+            });
+
+            // Suara Petasan
+            const fireworkSound = document.getElementById("fireworkSound");
+            fireworkSound.currentTime = 0;
+            fireworkSound.play();
+        };
+
+        setInterval(createFirework, 500);
+
+        // Efek Trompet
+        const trumpet = document.getElementById('trumpet');
+        const createSoundWave = () => {
+            const sound = document.createElement('div');
+            sound.classList.add('sound');
+            const x = Math.random() * 50 + 180; // Posisi horizontal dari trompet
+            const y = Math.random() * -50 + 350; // Posisi vertikal melengkung
+            sound.style.left = `${x}px`;
+            sound.style.bottom = `${y}px`;
+            document.body.appendChild(sound);
+
+            sound.addEventListener('animationend', () => {
+                sound.remove();
+            });
+        };
+
+        setInterval(createSoundWave, 700);
+    </script>
+</body>
+</html>
